@@ -1,4 +1,10 @@
+
+
+use std::io::Write;
+
 fn main() {
+
+    let mut file = std::fs::File::create("numbers.txt").expect("Create error");
 
     let ray  = vec!["0000", "1111", "2222", "3333", "4444", "5555", "6666", "7777", "8888", "9999", "0000"];
     let code = "8911";
@@ -10,7 +16,7 @@ fn main() {
         let y = format!("{:.7}", x);
         let c = &y[2..];
 
-        let z = format!("{}{}", code, c);
+        let z = format!("{}{}\n", code, c);
         
         let mut is_ok = true;
         for i in 0..10 {
@@ -21,6 +27,9 @@ fn main() {
         }
         if is_ok {
             println!("{}", z);
+            
+            file.write_all(z.as_bytes()).expect("Write error");
+            println!("Number successfully writed");
         }
     }
 }
